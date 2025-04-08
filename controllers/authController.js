@@ -2,6 +2,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const generateToken = require('../utils/generateToken');
 
+// Register user
 const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -17,60 +18,54 @@ const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create user
-    const user = await User.create({
+    await User.create({
       username,
       email,
       password: hashedPassword
     });
 
-    // Generate JWT
-    const token = generateToken(user._id);
+    // Return success message
+    res.status(201).json({ message: 'Registration successful' });
 
-    res.status(201).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      token
-    });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-//Login user
-
+// Login user
 const login = async (req, res) => {
-    try {
-      const { email, password } = req.body;
-  
-      // Check for user existence
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
-  
-      // Compare passwords
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
-  
-      // Generate JWT
-      const token = generateToken(user._id);
-  
-      res.json({
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-        token
-      });
-    } catch (error) {
-      res.status(500).json({ message: 'Server error' });
+  try {
+    const { email, password } = req.body;
+
+    // Check for user existence
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
-  };
-  
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Generate JWT
+    const token = generateToken(user._id);
+
+    // Return user info and token
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      token
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 module.exports = {
   register,
-  login 
+  login
 };
