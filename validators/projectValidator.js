@@ -6,51 +6,51 @@ const projectSchema = z.object({
     title: z.string().min(1),
     description: z.string().min(1),
     price: z.number(),
-    type: z.string().min(1),
-    status: z.string().min(1)
+    type: z.string(),
+    status: z.string()
   }),
   homeBreaths: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
-    benefits: z.array(z.string().min(1))
+    title: z.string(),
+    description: z.string(),
+    benefits: z.array(z.string())
   }),
   insideExperience: z.object({
     carousel: z.array(z.string().url())
   }),
   tailoredSpaces: z.array(z.object({
-    title: z.string().min(1),
-    type: z.string().min(1),
-    area: z.string().min(1),
-    layout: z.string().min(1),
+    title: z.string(),
+    type: z.string(),
+    area: z.string(),
+    layout: z.string(),
     images: z.array(z.string().url()),
     download: z.string().url()
   })),
   communityMap: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
-    nearby: z.array(z.string().min(1)),
+    title: z.string(),
+    description: z.string(),
+    nearby: z.array(z.string()),
     mapImages: z.array(z.string().url()),
     download: z.string().url()
   }),
   amenities: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
-    nearby: z.array(z.string().min(1))
+    title: z.string(),
+    description: z.string(),
+    nearby: z.array(z.string())
   }),
   location: z.object({
-    title: z.string().min(1),
-    location: z.string().min(1),
-    from_airport: z.string().min(1),
-    from_topSchool: z.string().min(1),
-    from_kingRoad: z.string().min(1),
-    from_mall: z.string().min(1),
-    from_jeddahWaterFront: z.string().min(1),
-    view: z.string().min(1)
+    title: z.string(),
+    location: z.string(),
+    from_airport: z.string(),
+    from_topSchool: z.string(),
+    from_kingRoad: z.string(),
+    from_mall: z.string(),
+    from_jeddahWaterFront: z.string(),
+    view: z.string()
   }),
   testimonials: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
-    quotes: z.array(z.string().min(1))
+    title: z.string(),
+    description: z.string(),
+    quotes: z.array(z.string())
   })
 });
 
