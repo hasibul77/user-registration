@@ -10,3 +10,4 @@ const validateMedia = (req, res, next) => {
 };
 
 module.exports = { validateMedia };
+

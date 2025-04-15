@@ -6,37 +6,36 @@ const { protect } = require('../middlewares/authMiddleware');
 const multer = require('multer');
 const upload = multer();
 
-// Create Media
+// All fields optional, no max count
 router.post(
   '/',
   protect,
   upload.fields([
-    { name: 'thumbnail_image', maxCount: 1 },
-    { name: 'photos', maxCount: 3 }
+    { name: 'thumbnail_image' },
+    { name: 'thumbnail_image_ar' },
+    { name: 'photos' },
+    { name: 'photos_ar' }
   ]),
   validateMedia,
   createMedia
 );
 
-// Read All Media
 router.get('/', protect, getAllMedia);
-
-// Read Single Media by ID
 router.get('/:id', protect, getMediaById);
 
-// Update Media
 router.put(
   '/:id',
   protect,
   upload.fields([
-    { name: 'thumbnail_image', maxCount: 1 },
-    { name: 'photos', maxCount: 3 }
+    { name: 'thumbnail_image' },
+    { name: 'thumbnail_image_ar' },
+    { name: 'photos' },
+    { name: 'photos_ar' }
   ]),
   validateMedia,
   updateMedia
 );
 
-// Delete Media
 router.delete('/:id', protect, deleteMedia);
 
 module.exports = router;
